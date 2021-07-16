@@ -11,7 +11,7 @@ template<typename ...T>
 void log(T ... args) {
   if(logIsEnabled()) {
     Serial.println(args...);
-//    getDisplay().println(args...);
+    getDisplay().println(args...);
   }
 }
 

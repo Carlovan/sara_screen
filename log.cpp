@@ -9,8 +9,8 @@ bool logIsEnabled() {
 
 void enableLog() {
   Serial.begin(115200);
-//  getDisplay().setCursor(0, 0, 2);
-//  getDisplay().setTextColor(TFT_WHITE, TFT_BLACK);
+  getDisplay().setCursor(0, 0, 2);
+  getDisplay().setTextColor(TFT_WHITE, TFT_BLACK);
   enabled = true;
 }
 
