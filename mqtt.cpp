@@ -12,8 +12,6 @@ MQTTClient::MQTTClient(const String& _server, const String& _id, const String& _
 
 void MQTTClient::begin() {
   wifiClient.setCACert(CA_CERT);
-//  wifiClient.setCertificate(CLIENT_CERT);
-//  wifiClient.setPrivateKey(CLIENT_KEY);
   
   setServer(server.c_str(), 8883);
   setCallback(this->callback);
