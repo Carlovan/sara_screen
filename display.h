@@ -8,5 +8,6 @@ void initDisplay();
 TFT_eSPI& getDisplay();
 
 void drawWrapCenterString(char* string);
+void setBrightness(byte level);
 
 #endif
