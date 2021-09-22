@@ -4,10 +4,14 @@
 #include <SPI.h>
 #include <TFT_eSPI.h> // Hardware-specific library
 
-void initDisplay();
-TFT_eSPI& getDisplay();
+class Display : public TFT_eSPI {
+  private:
+    TFT_eSPI tft;
+  public:
+    Display();
 
-void drawWrapCenterString(char* string);
-void setBrightness(byte level);
+    void drawWrapCenterString(char* string);
+    void setBrightness(byte level);
+};
 
 #endif

@@ -7,25 +7,18 @@ const int BRIGHT_PWM_PIN = 13;
 const int BRIGHT_PWM_RESOLUTION = 8;
 const int BRIGHT_PWM_FREQ = 5000;
 
-TFT_eSPI tft = TFT_eSPI();       // Invoke custom library
 
-void initDisplay() {
-  tft.init();
-  tft.setRotation(3);
-  tft.fillScreen(TFT_BLACK);
+Display::Display() {
+  init();
+  setRotation(3);
+  fillScreen(TFT_BLACK);
 
   ledcSetup(BRIGHT_PWM_CHANNEL, BRIGHT_PWM_FREQ, BRIGHT_PWM_RESOLUTION);
   ledcAttachPin(BRIGHT_PWM_PIN, BRIGHT_PWM_CHANNEL);
   setBrightness(255);
 }
 
-TFT_eSPI& getDisplay() {
-  return tft;
-}
-
-void drawWrapCenterString(char* string) {
-  auto& disp = getDisplay();
-  
+void Display::drawWrapCenterString(char* string) {
   char* lines[11][6] = {NULL};// [line][word]
   int lineLen[11] = {0};
   int curLine = 0, curWord = 0;
@@ -33,28 +26,28 @@ void drawWrapCenterString(char* string) {
   while(true) {
     char* next = strtok((curLine == 0 && curWord == 0) ? string : NULL, " ");
     if (next == NULL) break;
-    if (lineLen[curLine] + disp.textWidth(next) + disp.textWidth(" ") > disp.width()) {
+    if (lineLen[curLine] + textWidth(next) + textWidth(" ") > width()) {
       curLine++;
       curWord = 0;
     }
     lines[curLine][curWord] = next;
-    lineLen[curLine] += disp.textWidth(next) + disp.textWidth(" ");
+    lineLen[curLine] += textWidth(next) + textWidth(" ");
     curWord++;
   }
   curLine++;
 
-  int totHeight = curLine * (disp.fontHeight() + LINE_SPACE);
+  int totHeight = curLine * (fontHeight() + LINE_SPACE);
 
-  for (int l = 0, y = (disp.height() - totHeight) / 2; l < curLine; l++, y+= disp.fontHeight() + LINE_SPACE) {
-    int x = (disp.width() - lineLen[l]) / 2;
-    disp.setCursor(x, y);
+  for (int l = 0, y = (height() - totHeight) / 2; l < curLine; l++, y+= fontHeight() + LINE_SPACE) {
+    int x = (width() - lineLen[l]) / 2;
+    setCursor(x, y);
     for (int w = 0; lines[l][w] != NULL; w++) {
-      disp.print(lines[l][w]);
-      disp.print(' ');
+      print(lines[l][w]);
+      print(' ');
     }
   }
 }
 
-void setBrightness(byte level) {
+void Display::setBrightness(byte level) {
   ledcWrite(BRIGHT_PWM_CHANNEL, level);
 }

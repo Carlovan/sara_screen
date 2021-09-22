@@ -3,15 +3,17 @@
 
 #include "display.h"
 
+extern Display* display;
+
 bool logIsEnabled();
-void enableLog();
+void enableLog(Display *disp);
 void disableLog();
 
 template<typename ...T>
 void log(T ... args) {
   if(logIsEnabled()) {
     Serial.println(args...);
-    getDisplay().println(args...);
+    display->println(args...);
   }
 }
 
