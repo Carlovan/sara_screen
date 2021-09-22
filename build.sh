@@ -1,7 +1,8 @@
 #!/bin/bash
 
 FQBN='esp32:esp32:esp32doit-devkit-v1'
-BASE_CMD="arduino-cli compile -b $FQBN"
+EXTRA_FLAGS=''
+BASE_CMD="arduino-cli compile --build-property compiler.cpp.extra_flags='$EXTRA_FLAGS' -b $FQBN"
 
 compile() {
 	$BASE_CMD "$@"
