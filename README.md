@@ -1,5 +1,6 @@
-## Build
-1. Install `arduino-cli`
+## Setup
+Steps needed to setup the environment
+1. Install `arduino-cli` and `make`
 2. Initialize config file: `arduino-cli config init`
 3. Modify the created config file to contain 
 ```
@@ -12,5 +13,12 @@ board_manager:
 6. Install libraries:
     - `arduino-cli lib install PubSubClient`
 	- `arduino-cli lib install --zip-path TFT_eSPI.zip`
-7. Connect the ESP32 and identify the port with `arduino-cli board list`
-8. Compile and upload `arduino-cli -p <port> -b esp32:esp32:esp32doit-devkit-v1 -ut .`
+
+## Build
+The provided script `build.sh` contains most useful commands.
+You can specify additional arguments after the subcommand.
+
+You can run `./build.sh compile` to only compile the code, without uploading.
+
+Run `./build.sh upload <port>` to compile and upload the code to the board.
+You can retrieve the port by connecting the board to your computer and running `arduino-cli board list`.
